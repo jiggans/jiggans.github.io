@@ -303,7 +303,7 @@ a {
   color: white;
 }
 h1 {
-  font-family:  "Montserrat", sans-serif;
+  font-family: "Michroma", sans-serif;
   font-size: 5rem;
   font-weight: 200;
   letter-spacing: -0.1rem;
@@ -346,16 +346,18 @@ a {
 
 .slide-header {
   position: absolute;
-  bottom: 2rem;
+  bottom: 0rem;
   left: 50%;
   transform: translate(-50%, 0%);
-  width: 75%;
+  width: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
   z-index: 1;
+  background: rgba(0,0,0,0.3);
+  padding: 25px;
 }
 
 .slide-description {
@@ -470,7 +472,8 @@ section {
   text-align: center;
   font-size: clamp(2rem, 5vw, 2.6rem);
   lline-height: 2;
-  padding: 3%
+  padding: 3%;
+  font-family: "montserrat", sans-serif;
 }
 .outro {
   display: flex;
@@ -866,7 +869,9 @@ section {
   gap: 2rem;
   will-change: transform, opacity;
 }
-
+.hero-header h1{
+    font-family: "Michroma", sans-serif;
+}
 .animated-icons {
   position: fixed;
   bottom: 3rem;
@@ -894,7 +899,11 @@ section {
     font-weight: 300;
     line-height: 2;
 }
-
+h1.animated-text {
+  font-family: "Montserrat", sans-serif !important;
+  
+  font-style: normal;
+}
 .text-segment {
   opacity: 0;
 }
