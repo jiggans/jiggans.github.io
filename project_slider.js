@@ -181,34 +181,58 @@ const slides = [
   {
     slideTitle: "Mollie Huges",
     slideDescription:
-      "A stripped-back visual experience blending luxury fashion with streetwear edge. Designed for bold statements and minimal distractions.",
+      "A custom WordPress site built for record-breaking mountaineer Mollie Hughes, blending clean design with immersive visuals to tell her story. Focused on performance, accessibility, and inspiring adventure.",
     slideUrl: "/projects/monochrome-signal",
     slideTags: ["Monochrome", "Editorial", "Fashion", "Visual Identity"],
     slideImg: "https://molliehughes.co.uk/wp-content/uploads/2018/04/cropped-Mollie-header.jpg",
   },
   {
-    slideTitle: "Mecha Muse",
+    slideTitle: "Aurabella",
     slideDescription:
-      "An experimental microsite blurring the line between human and machine. Cinematic visuals and deep red hues evoke a futuristic mythos.",
+      "Shopify landing page for Aurabella, a luxury wellbeing bath blend brand. Currently in development, it features an immersive particle-based animated logo set against a cinematic background as the centrepiece of the coming-soon experience.",
     slideUrl: "/projects/mecha-muse",
     slideTags: ["Cyberpunk", "Experimental", "3D Layers", "Concept Design"],
-    slideImg: "slide-img-2.jpg",
+    slideImg: "img/landing.jpg",
   },
   {
-    slideTitle: "Neon Bloom",
+    slideTitle: "Tiso",
     slideDescription:
-      "A surreal fusion of light, shadow, and sound. This project celebrates contrast and silhouette in a dreamlike digital space.",
+      "A collection of e-commerce web and email campaigns for Tiso, a leading outdoor retailer in Scotland. Projects included designing engaging product pages, seasonal campaigns, and optimised shopping experiences.",
     slideUrl: "/projects/neon-bloom",
     slideTags: ["Surreal", "Lightplay", "Immersive", "Visual Narrative"],
-    slideImg: "slide-img-3.jpg",
+    slideImg: "img/tiso.jpg",
   },
   {
-    slideTitle: "Chromawave",
+    slideTitle: "Tiso History",
     slideDescription:
       "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
     slideUrl: "/projects/chromawave",
     slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
-    slideImg: "slide-img-4.jpg",
+    slideImg: "img/history.jpg",
+  },
+    {
+    slideTitle: "The North Face",
+    slideDescription:
+      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
+    slideUrl: "/projects/chromawave",
+    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
+    slideImg: "img/northface.jpg",
+  },
+    {
+    slideTitle: "Patagonia",
+    slideDescription:
+      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
+    slideUrl: "/projects/chromawave",
+    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
+    slideImg: "img/patagonia.jpg",
+  },
+    {
+    slideTitle: "Explore Aviemore",
+    slideDescription:
+      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
+    slideUrl: "/projects/chromawave",
+    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
+    slideImg: "img/aviemore.jpg",
   },
 ];
 
