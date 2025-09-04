@@ -1,22 +1,25 @@
  
-
 document.addEventListener("DOMContentLoaded", () => {
+  // ————————————————
+  // Menu elements
+  // ————————————————
   const container = document.querySelector(".container");
   const menuToggle = document.querySelector(".menu-toggle");
   const menuOverlay = document.querySelector(".menu-overlay");
   const menuContent = document.querySelector(".menu-content");
   const menuPreviewImg = document.querySelector(".menu-preview-img");
-  const menuLinks = document.querySelectorAll(".link a");
+  const menuLinks = document.querySelectorAll(".link a, .social a");
 
   let isOpen = false;
   let isAnimating = false;
 
+  // Toggle button
   menuToggle.addEventListener("click", () => {
     if (!isOpen) openMenu();
     else closeMenu();
   });
 
-  function cleanupPreviewpreviewImages() {
+  function cleanupPreviewImages() {
     const previewImages = menuPreviewImg.querySelectorAll("img");
     if (previewImages.length > 3) {
       for (let i = 0; i < previewImages.length - 3; i++) {
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menuPreviewImg.innerHTML = "";
     const defaultPreviewImg = document.createElement("img");
     defaultPreviewImg.src = "img-1.jpg";
+    defaultPreviewImg.alt = "";
     menuPreviewImg.appendChild(defaultPreviewImg);
   }
 
@@ -37,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const close = document.querySelector("p#menu-close");
 
     gsap.to(isOpening ? open : close, {
-      x: isOpening ? -5 : -5,
+      x: -5,
       y: isOpening ? -10 : 10,
       rotation: isOpening ? -5 : 5,
       opacity: 0,
@@ -51,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
       y: 0,
       rotation: 0,
       opacity: 1,
-      delay: isOpening ? 0.5 : 0.5,
+      delay: 0.5,
       duration: 0.5,
       ease: "power2.out",
     });
@@ -134,12 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
       onComplete: () => {
         isOpen = false;
         isAnimating = false;
-        gsap.set([".link a", ".social a"], { y: "120%" });
+        gsap.set([".link a", ".social a"], { y: "120%", opacity: 0 });
         resetPreviewImage();
       },
     });
   }
 
+  // Hover preview
   menuLinks.forEach((link) => {
     link.addEventListener("mouseover", () => {
       if (!isOpen || isAnimating) return;
@@ -151,16 +156,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (
         previewImages.length > 0 &&
         previewImages[previewImages.length - 1].src.endsWith(imgSrc)
-      )
+      ) {
         return;
+      }
 
       const newPreviewImg = document.createElement("img");
       newPreviewImg.src = imgSrc;
+      newPreviewImg.alt = "";
       newPreviewImg.style.opacity = "0";
       newPreviewImg.style.transform = "scale(1.25) rotate(10deg)";
 
       menuPreviewImg.appendChild(newPreviewImg);
-      cleanupPreviewpreviewImages();
+      cleanupPreviewImages();
 
       gsap.to(newPreviewImg, {
         opacity: 1,
@@ -170,78 +177,100 @@ document.addEventListener("DOMContentLoaded", () => {
         ease: "power2.out",
       });
     });
+
+    // Close menu on click; handle anchors vs external links
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href") || "";
+      const isHash = href.startsWith("#");
+      if (isHash) e.preventDefault();
+
+      // Start closing animation
+      closeMenu();
+
+      // After a short delay, act on the link
+      setTimeout(() => {
+        if (isHash) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          window.open(href, link.getAttribute("target") || "_self");
+        }
+      }, 350);
+    });
   });
-});
 
-
-
-
-
-const slides = [
-  {
-    slideTitle: "Mollie Huges",
-    slideDescription:
-      "A custom WordPress site built for record-breaking mountaineer Mollie Hughes, blending clean design with immersive visuals to tell her story. Focused on performance, accessibility, and inspiring adventure.",
-    slideUrl: "/projects/monochrome-signal",
-    slideTags: ["Monochrome", "Editorial", "Fashion", "Visual Identity"],
-    slideImg: "https://molliehughes.co.uk/wp-content/uploads/2018/04/cropped-Mollie-header.jpg",
-  },
-  {
-    slideTitle: "Aurabella",
-    slideDescription:
-      "Shopify landing page for Aurabella, a luxury wellbeing bath blend brand. Currently in development, it features an immersive particle-based animated logo set against a cinematic background as the centrepiece of the coming-soon experience.",
-    slideUrl: "/projects/mecha-muse",
-    slideTags: ["Cyberpunk", "Experimental", "3D Layers", "Concept Design"],
-    slideImg: "img/landing.jpg",
-  },
-  {
-    slideTitle: "Tiso",
-    slideDescription:
-      "A collection of e-commerce web and email campaigns for Tiso, a leading outdoor retailer in Scotland. Projects included designing engaging product pages, seasonal campaigns, and optimised shopping experiences.",
-    slideUrl: "/projects/neon-bloom",
-    slideTags: ["Surreal", "Lightplay", "Immersive", "Visual Narrative"],
-    slideImg: "img/tiso.jpg",
-  },
-  {
-    slideTitle: "Tiso History",
-    slideDescription:
-      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
-    slideUrl: "/projects/chromawave",
-    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
-    slideImg: "img/history.jpg",
-  },
+  // ————————————————
+  // Slider data
+  // ————————————————
+  const slides = [
     {
-    slideTitle: "The North Face",
-    slideDescription:
-      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
-    slideUrl: "/projects/chromawave",
-    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
-    slideImg: "img/northface.jpg",
-  },
+      slideTitle: "Mollie Hughes",
+      slideDescription:
+        "Custom WordPress site for record-breaking mountaineer Mollie Hughes. Editorial layout with bold photography, accessible navigation, and improved Core Web Vitals for a fast, immersive read.",
+      slideUrl: "https://molliehughes.co.uk/",
+      slideTags: ["WordPress", "HTML5", "CSS3", "JavaScript"],
+      slideImg:
+        "https://molliehughes.co.uk/wp-content/uploads/2018/04/cropped-Mollie-header.jpg",
+    },
     {
-    slideTitle: "Patagonia",
-    slideDescription:
-      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
-    slideUrl: "/projects/chromawave",
-    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
-    slideImg: "img/patagonia.jpg",
-  },
+      slideTitle: "Aurabella",
+      slideDescription:
+        "Work-in-progress Shopify landing page for Aurabella, a luxury wellbeing bath-blends brand. Features a particle-based animated logo over a cinematic backdrop as the centrepiece of the coming-soon experience.",
+      slideUrl: "https://aurabella.uk/",
+      slideTags: ["Shopify", "GSAP", "WebGL", "Liquid"],
+      slideImg: "img/landing.jpg",
+    },
     {
-    slideTitle: "Explore Aviemore",
-    slideDescription:
-      "A glossy, synth-infused interface for creators at the edge of music and fashion. Perfect for launch drops or digital showrooms.",
-    slideUrl: "/projects/chromawave",
-    slideTags: ["Futuristic", "Glassmorphism", "Music", "Creative Tech"],
-    slideImg: "img/aviemore.jpg",
-  },
-];
+      slideTitle: "Tiso",
+      slideDescription:
+        "Tiso is the biggest outdoor retailer in Scotland, selling outdoor gear, bikes, and skis. Work included brand landing pages, product campaigns, and optimised shopping experiences.",
+      slideUrl: "https://www.tiso.com/",
+      slideTags: ["Ecommerce", "Smarty", "HTML5", "CSS3", "jQuery"],
+      slideImg: "img/tiso.jpg",
+    },
+    {
+      slideTitle: "Tiso History",
+      slideDescription:
+        "Interactive timeline page charting the brand’s milestones. GSAP-driven scroll animations, pinned sections, and responsive media for an engaging long-form experience.",
+      slideUrl: "https://www.tiso.com/history",
+      slideTags: ["GSAP", "HTML5", "jQuery", "CSS3"],
+      slideImg: "img/history.jpg",
+    },
+    {
+      slideTitle: "The North Face",
+      slideDescription:
+        "Brand landing page on tiso.com providing insight into The North Face’s story, values, and curated collections, blending editorial content with shoppable features.",
+      slideUrl: "https://www.tiso.com/the-north-face-landing",
+      slideTags: ["HTML5", "CSS3", "jQuery"],
+      slideImg: "img/northface.jpg",
+    },
+    {
+      slideTitle: "Patagonia",
+      slideDescription:
+        "Brand landing page on tiso.com highlighting Patagonia’s sustainability mission and key product ranges, combining storytelling with direct shopping pathways.",
+      slideUrl: "https://www.tiso.com/patagonia-landing",
+      slideTags: ["HTML5", "CSS3", "jQuery"],
+      slideImg: "img/patagonia.jpg",
+    },
+    {
+      slideTitle: "Explore Aviemore",
+      slideDescription:
+        "WordPress + Elementor website for a local tourism project, featuring directory cards, itinerary ideas, and simple filtering for a modern visitor experience.",
+      slideUrl: "https://www.exploreaviemore.com/",
+      slideTags: ["WordPress", "Elementor", "HTML5", "CSS3"],
+      slideImg: "img/aviemore.jpg",
+    },
+  ];
 
-
-document.addEventListener("DOMContentLoaded", () => {
+  // ————————————————
+  // Slider logic
+  // ————————————————
   const totalSlides = slides.length;
   let currentSlide = 1;
 
-  let isAnimating = false;
+  let isSlideAnimating = false;
   let scrollAllowed = true;
   let lastScrollTime = 0;
 
@@ -278,6 +307,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const a = document.createElement("a");
     a.href = slideData.slideUrl;
     a.textContent = "View Project";
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
     slideLink.appendChild(a);
 
     slideHeader.appendChild(slideTitle);
@@ -290,7 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const slideTags = document.createElement("div");
     slideTags.className = "slide-tags";
     const tagsLabel = document.createElement("p");
-    tagsLabel.textContent = "Tags";
+    tagsLabel.textContent = "Tools";
     slideTags.appendChild(tagsLabel);
 
     slideData.slideTags.forEach((tag) => {
@@ -323,6 +354,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function splitText(slide) {
+    // Only run if SplitText is available
+    if (typeof SplitText === "undefined") return;
+
     const slideHeader = slide.querySelector(".slide-title h1");
     if (slideHeader) {
       SplitText.create(slideHeader, {
@@ -344,13 +378,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animateSlide(direction) {
-    if (isAnimating || !scrollAllowed) return;
+    if (isSlideAnimating || !scrollAllowed) return;
 
-    isAnimating = true;
+    isSlideAnimating = true;
     scrollAllowed = false;
 
     const slider = document.querySelector(".slider");
-    const currentSlideElement = slider.querySelector(".slide");
+    const currentSlideElement = slider ? slider.querySelector(".slide") : null;
+    if (!slider || !currentSlideElement) {
+      isSlideAnimating = false;
+      scrollAllowed = true;
+      return;
+    }
 
     if (direction === "down") {
       currentSlide = currentSlide === totalSlides ? 1 : currentSlide + 1;
@@ -394,10 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const words = newSlide.querySelectorAll(".word");
       const lines = newSlide.querySelectorAll(".line");
 
-      gsap.set([...words, ...lines], {
-        y: "100%",
-        force3D: true,
-      });
+      gsap.set([...words, ...lines], { y: "100%", force3D: true });
 
       gsap.to(newSlide, {
         y: 0,
@@ -431,50 +467,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
           tl.to(
             tagsLines,
-            {
-              y: "0%",
-              duration: 1,
-              ease: "power4.out",
-              stagger: 0.1,
-            },
+            { y: "0%", duration: 1, ease: "power4.out", stagger: 0.1 },
             "-=0.75"
           );
 
-          tl.to(
-            indexLines,
-            {
-              y: "0%",
-              duration: 1,
-              ease: "power4.out",
-              stagger: 0.1,
-            },
-            "<"
-          );
-
-          tl.to(
-            descriptionLines,
-            {
-              y: "0%",
-              duration: 1,
-              ease: "power4.out",
-              stagger: 0.1,
-            },
-            "<"
-          );
+          tl.to(indexLines, { y: "0%", duration: 1, ease: "power4.out", stagger: 0.1 }, "<");
+          tl.to(descriptionLines, { y: "0%", duration: 1, ease: "power4.out", stagger: 0.1 }, "<");
 
           const linkLines = newSlide.querySelectorAll(".slide-link .line");
-          tl.to(
-            linkLines,
-            {
-              y: "0%",
-              duration: 1,
-              ease: "power4.out",
-            },
-            "-=1"
-          );
+          tl.to(linkLines, { y: "0%", duration: 1, ease: "power4.out" }, "-=1");
         },
         onComplete: () => {
-          isAnimating = false;
+          isSlideAnimating = false;
           setTimeout(() => {
             scrollAllowed = true;
             lastScrollTime = Date.now();
@@ -486,14 +490,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function handleScroll(direction) {
     const now = Date.now();
-
-    if (isAnimating || !scrollAllowed) return;
+    if (isSlideAnimating || !scrollAllowed) return;
     if (now - lastScrollTime < 1000) return;
 
     lastScrollTime = now;
     animateSlide(direction);
   }
 
+  // Wheel
   window.addEventListener(
     "wheel",
     (e) => {
@@ -504,6 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { passive: false }
   );
 
+  // Touch
   let touchStartY = 0;
   let isTouchActive = false;
 
@@ -520,7 +525,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "touchmove",
     (e) => {
       e.preventDefault();
-      if (!isTouchActive || isAnimating || !scrollAllowed) return;
+      if (!isTouchActive || isSlideAnimating || !scrollAllowed) return;
 
       const touchCurrentY = e.touches[0].clientY;
       const difference = touchStartY - touchCurrentY;
@@ -538,3 +543,4 @@ document.addEventListener("DOMContentLoaded", () => {
     isTouchActive = false;
   });
 });
+ 

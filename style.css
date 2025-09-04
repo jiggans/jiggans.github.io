@@ -322,6 +322,14 @@ a {
   font-weight: 500;
   letter-spacing: -0.01rem;
 }
+p
+  {
+  text-decoration: none;
+  font-family: "montserrat", sans-serif;
+  font-size: 1rem;
+  
+  
+}
 
 .slider {
   position: relative;
@@ -359,6 +367,13 @@ a {
   background: rgba(0,0,0,0.3);
   padding: 25px;
 }
+.slide-title h1 {
+  color: #fff;
+  font-size: 4rem;
+  font-weight: 400;
+  letter-spacing: -0.2rem;
+  margin-bottom: 5px;
+}
 
 .slide-description {
   width: 60%;
@@ -375,6 +390,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  z-index: 2;
 }
 
 .slide-tags {
@@ -547,8 +563,8 @@ section {
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, -1000px);
-  width: 640px;
-  height: 480px;
+  width: 600px;
+  height: 400px;
   will-change: transform;
 }
 
@@ -563,7 +579,8 @@ section {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  width: 50%;
+  width: 80%;
+  max-width: 1140px;
 }
 
 .spotlight-intro-header {
@@ -609,10 +626,10 @@ img {
 
 h1 {
   color: #fff;
-  font-size: 7rem;
+  font-size: clamp(2rem, 5vw, 6rem);
   font-weight: 400;
   letter-spacing: -0.2rem;
-  line-height: 1;
+  line-height: 1.2;
 }
 
 a,
@@ -855,7 +872,6 @@ section {
 .hero {
   flex-direction: column;
   transition: background-color 0.3s ease;
-  
 }
 
 .hero-header {

@@ -1,6 +1,9 @@
  
 
 document.addEventListener("DOMContentLoaded", () => {
+  // ————————————————
+  // Menu elements
+  // ————————————————
   const container = document.querySelector(".container");
   const hero = document.querySelector(".hero"); 
   const spotlight = document.querySelector(".spotlight");
@@ -8,17 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuOverlay = document.querySelector(".menu-overlay");
   const menuContent = document.querySelector(".menu-content");
   const menuPreviewImg = document.querySelector(".menu-preview-img");
-  const menuLinks = document.querySelectorAll(".link a");
+  const menuLinks = document.querySelectorAll(".link a, .social a");
 
   let isOpen = false;
   let isAnimating = false;
 
+  // Toggle button
   menuToggle.addEventListener("click", () => {
     if (!isOpen) openMenu();
     else closeMenu();
   });
 
-  function cleanupPreviewpreviewImages() {
+  function cleanupPreviewImages() {
     const previewImages = menuPreviewImg.querySelectorAll("img");
     if (previewImages.length > 3) {
       for (let i = 0; i < previewImages.length - 3; i++) {
@@ -30,7 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetPreviewImage() {
     menuPreviewImg.innerHTML = "";
     const defaultPreviewImg = document.createElement("img");
-    defaultPreviewImg.src = "img-1.jpg";
+    defaultPreviewImg.src = "https://cdn.midjourney.com/1de91d02-0f6f-43db-ae17-19ed710a4278/0_0.png";
+    defaultPreviewImg.alt = "";
     menuPreviewImg.appendChild(defaultPreviewImg);
   }
 
@@ -39,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const close = document.querySelector("p#menu-close");
 
     gsap.to(isOpening ? open : close, {
-      x: isOpening ? -5 : -5,
+      x: -5,
       y: isOpening ? -10 : 10,
       rotation: isOpening ? -5 : 5,
       opacity: 0,
@@ -53,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
       y: 0,
       rotation: 0,
       opacity: 1,
-      delay: isOpening ? 0.5 : 0.5,
+      delay: 0.5,
       duration: 0.5,
       ease: "power2.out",
     });
@@ -63,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isAnimating || isOpen) return;
     isAnimating = true;
 
-    gsap.to(container, {
+     gsap.to(container, {
       rotation: 10,
       x: 300,
       y: 450,
@@ -87,7 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: 1.25,
       ease: "power4.inOut",
     });
-
 
     animateMenuToggle(true);
 
@@ -169,12 +173,13 @@ document.addEventListener("DOMContentLoaded", () => {
       onComplete: () => {
         isOpen = false;
         isAnimating = false;
-        gsap.set([".link a", ".social a"], { y: "120%" });
+        gsap.set([".link a", ".social a"], { y: "120%", opacity: 0 });
         resetPreviewImage();
       },
     });
   }
 
+  // Hover preview
   menuLinks.forEach((link) => {
     link.addEventListener("mouseover", () => {
       if (!isOpen || isAnimating) return;
@@ -186,16 +191,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (
         previewImages.length > 0 &&
         previewImages[previewImages.length - 1].src.endsWith(imgSrc)
-      )
+      ) {
         return;
+      }
 
       const newPreviewImg = document.createElement("img");
       newPreviewImg.src = imgSrc;
+      newPreviewImg.alt = "";
       newPreviewImg.style.opacity = "0";
       newPreviewImg.style.transform = "scale(1.25) rotate(10deg)";
 
       menuPreviewImg.appendChild(newPreviewImg);
-      cleanupPreviewpreviewImages();
+      cleanupPreviewImages();
 
       gsap.to(newPreviewImg, {
         opacity: 1,
@@ -204,6 +211,28 @@ document.addEventListener("DOMContentLoaded", () => {
         duration: 0.75,
         ease: "power2.out",
       });
+    });
+
+    // Close menu on click; handle anchors vs external links
+    link.addEventListener("click", (e) => {
+      const href = link.getAttribute("href") || "";
+      const isHash = href.startsWith("#");
+      if (isHash) e.preventDefault();
+
+      // Start closing animation
+      closeMenu();
+
+      // After a short delay, act on the link
+      setTimeout(() => {
+        if (isHash) {
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        } else {
+          window.open(href, link.getAttribute("target") || "_self");
+        }
+      }, 350);
     });
   });
 });
