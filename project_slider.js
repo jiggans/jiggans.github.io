@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetPreviewImage() {
     menuPreviewImg.innerHTML = "";
     const defaultPreviewImg = document.createElement("img");
-    defaultPreviewImg.src = "img-1.jpg";
+    defaultPreviewImg.src = "https://cdn.midjourney.com/1de91d02-0f6f-43db-ae17-19ed710a4278/0_0.png";
     defaultPreviewImg.alt = "";
     menuPreviewImg.appendChild(defaultPreviewImg);
   }
