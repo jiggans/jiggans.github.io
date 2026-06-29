@@ -546,7 +546,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (outroHeaderSplit) outroHeaderSplit.revert();
     if (spotlightTrigger) spotlightTrigger.kill();
 
-    const images = document.querySelectorAll(".img");
+    const images = document.querySelectorAll(".img, .img-vertical");
     const coverImg = document.querySelector(".spotlight-cover-img");
     const introHeader = document.querySelector(".spotlight-intro-header h1");
     const outroHeader = document.querySelector(".spotlight-outro-header h1");
