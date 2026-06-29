@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Work-in-progress Shopify landing page for Aurabella, a luxury wellbeing bath-blends brand. Features a particle-based animated logo over a cinematic backdrop as the centrepiece of the coming-soon experience.",
       slideUrl: "https://aurabella.uk/",
       slideTags: ["Shopify", "GSAP", "WebGL", "Liquid"],
-      slideImg: "img/landing.jpg",
+      slideImg: "img/aurabella2026.jpg",
     },
     {
       slideTitle: "Tiso",
@@ -231,28 +231,28 @@ document.addEventListener("DOMContentLoaded", () => {
       slideImg: "img/tiso.jpg",
     },
     {
-      slideTitle: "Tiso History",
+      slideTitle: "Navigate Scaffolding LTD",
       slideDescription:
-        "Interactive timeline page charting the brand’s milestones. GSAP-driven scroll animations, pinned sections, and responsive media for an engaging long-form experience.",
-      slideUrl: "https://www.tiso.com/history",
-      slideTags: ["GSAP", "HTML5", "jQuery", "CSS3"],
-      slideImg: "img/history.jpg",
+        "Safe, Reliable, Innovative and Professional Scaffolding Solutions Across Scotland",
+      slideUrl: "https://navigatescaffoldingltd.com/",
+      slideTags: ["Wordpress", "Elementor", "jQuery", "CSS3"],
+      slideImg: "img/navigate_home.jpg",
     },
     {
-      slideTitle: "The North Face",
+      slideTitle: "Pro Performance Goalkeeping",
       slideDescription:
-        "Brand landing page on tiso.com providing insight into The North Face’s story, values, and curated collections, blending editorial content with shoppable features.",
-      slideUrl: "https://www.tiso.com/the-north-face-landing",
-      slideTags: ["HTML5", "CSS3", "jQuery"],
-      slideImg: "img/northface.jpg",
+        "Wordpress website for professional goalkeeper coaching for all ages, abilities and genders, delivered by SFA + UEFA-qualified coaches at Little Kerse.",
+      slideUrl: "https://properformancegoalkeeping.com/",
+      slideTags: ["Wordpress", "Elementor", "jQuery", "CSS3"],
+      slideImg: "img/pro_home.jpg",
     },
     {
-      slideTitle: "Patagonia",
+      slideTitle: "Multex",
       slideDescription:
-        "Brand landing page on tiso.com highlighting Patagonia’s sustainability mission and key product ranges, combining storytelling with direct shopping pathways.",
-      slideUrl: "https://www.tiso.com/patagonia-landing",
-      slideTags: ["HTML5", "CSS3", "jQuery"],
-      slideImg: "img/patagonia.jpg",
+        "Wordpress website for Multex that design and manufacture bespoke test fixtures, functional test systems and precision CNC machined assemblies. ",
+      slideUrl: "https://www.multex.co.uk/",
+      slideTags: ["Wordpress", "Elementor", "jQuery", "CSS3"],
+      slideImg: "img/multex_home.jpg",
     },
     {
       slideTitle: "Explore Aviemore",
